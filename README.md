@@ -27,7 +27,7 @@ pnpm add @crawlertoll/client
 yarn add @crawlertoll/client
 ```
 
-Node 18+ (any runtime with a global `fetch`, `crypto.getRandomValues`, and ES2022 support — Bun, Deno, Cloudflare Workers, browsers).
+**Node 20+** (any runtime with a global `fetch`, global `crypto.getRandomValues`, and ES2022 — Bun, Deno, Cloudflare Workers, browsers all qualify). Node 18 hit end-of-life April 2025 and doesn't expose Web Crypto globally without `--experimental-global-webcrypto`; the SDK throws at module load if it can't find it.
 
 [![npm](https://img.shields.io/npm/v/%40crawlertoll%2Fclient.svg)](https://www.npmjs.com/package/@crawlertoll/client) [![license](https://img.shields.io/npm/l/%40crawlertoll%2Fclient.svg)](./LICENSE)
 

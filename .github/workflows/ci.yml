@@ -11,7 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: ["18.x", "20.x", "22.x"]
+        # Node 20+ required: @noble/ed25519 reads globalThis.crypto,
+        # which only became global in Node 19+. Node 18 is EOL
+        # (April 2025) and not supported.
+        node-version: ["20.x", "22.x"]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}

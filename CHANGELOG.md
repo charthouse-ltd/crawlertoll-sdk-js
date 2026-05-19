@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.1.1 — 2026-05-19
+
+- **Bump minimum Node to 20.** `@noble/ed25519` reads
+  `globalThis.crypto.getRandomValues`, which only became global in
+  Node 19+. Node 18 (EOL April 2025) is no longer supported.
+- **Friendly load-time guard.** The package now throws a clear,
+  actionable error at module load if it can't find Web Crypto,
+  rather than failing inside a key-generation call stack with
+  `Cannot read properties of undefined (reading 'getRandomValues')`.
+- CI matrix dropped 18.x.
+
+No source-code changes to `discover`, `query`, `verify`, or
+`signEnvelope`. Behaviour is identical on Node 20+.
+
 ## v0.1.0 — 2026-05-19 (initial)
 
 Initial buyer SDK skeleton.

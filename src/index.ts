@@ -1,4 +1,20 @@
 /**
+ * Runtime guard. @noble/ed25519 reads globalThis.crypto.getRandomValues
+ * for key generation; on Node 18 (and on Node 19 without
+ * --experimental-global-webcrypto) that's undefined. Surface a clear
+ * error at module-load time rather than letting the failure surface
+ * inside a key-generation call stack with no actionable detail.
+ */
+if (typeof globalThis.crypto?.getRandomValues !== "function") {
+  throw new Error(
+    "@crawlertoll/client requires Web Crypto (globalThis.crypto.getRandomValues). " +
+      "Node 20+ has this built in. On Node 18 (EOL April 2025), upgrade to Node 20. " +
+      "On Node 19, run with --experimental-global-webcrypto, or polyfill before " +
+      "importing: globalThis.crypto = (await import('node:crypto')).webcrypto;",
+  );
+}
+
+/**
  * @crawlertoll/client — buyer SDK for CrawlerToll.
  *
  *   import { CrawlerTollClient, verify } from "@crawlertoll/client";
